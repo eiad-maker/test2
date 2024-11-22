@@ -1,0 +1,34 @@
+{% extends "nav.html" %}
+{% block content %}
+    {% for x in product %}
+      <div class="col-sm-4"> 
+        <div class="panel panel-primary">
+          <div class="panel-heading">{{x.name}}</div>
+          <div class="panel-body">description : {{x.content}}</div>
+          <div class="panel-footer">price : {{x.price}}</div>
+          <form method = 'POST'>
+            {% csrf_token %}
+            <button type="button" class="btn"><a href = '{% url "delete_product" x.pk %}'>Delete</a></button> 
+          </form>
+        </div>
+      </div>
+      {% endfor %} 
+
+    <style>
+        p{
+            margin-left:30px;
+        }
+        <script>
+            $(document).ready(function(){
+              $(".btn").click(function(){
+                $(this).button('loading').delay(1000).queue(function(){
+                  $(this).button('somestringvalue');
+                  $(this).dequeue();
+                });        
+              });  
+            });
+            </script>
+{% endblock content %}
+
+
+

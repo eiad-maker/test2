@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class = 'bg-secondary p-3'>
+    <h1>SignUp</h1>
+    <form method = 'POST' class="form-horizontal" >
+        <div class = 'container'>
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class = 'form-group'>
+                
+                <p class = 'active'>{{field.label_tag}}</p>
+                <div>{{field}}</div>
+                </div>
+                {% for error in field.errors %}
+                    
+                    <div class = 'invalid-feedback'>{{error}}</div>
+                {% endfor %}
+                {% if field.help_text %}
+                    <small class = 'form-text text-muted'>
+                        {{field.help_text}}
+                    </small>
+                {% endif %}
+                
+            {% endfor %}
+            
+            <div><button type = 'submit' class= 'btn btn-info'>Create New User<button></div> 
+        </div>
+    </form>
+</div>
+{% endblock content %}

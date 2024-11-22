@@ -1,0 +1,20 @@
+{% extends "nav.html" %}
+{% block content %}
+
+<form method = 'POST'>
+    {% csrf_token %}
+    <button type = 'submit' name ='delete' class="btn btn-default" data-somestringvalue-text="Loading Finished" autocomplete="off">Add</button>
+</form>
+{% comment %} {{product}} {% endcomment %}
+
+<script>
+    $(document).ready(function(){
+      $(".btn").click(function(){
+        $(this).button('loading').delay(1000).queue(function(){
+          $(this).button('somestringvalue');
+          $(this).dequeue();
+        });        
+      });  
+    });
+    </script>
+{% endblock content %} 

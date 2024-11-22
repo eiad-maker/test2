@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class = 'bg-secondary p-3'>
+    <h1>SignUp</h1>
+    <form method = 'POST' class="" >
+        <div class = 'mb-3 mt-3'>
+            <div class = 'container'>
+                {% csrf_token %}
+            
+                {% for field in form %}
+                    <div class = 'form-group'>
+                            <p class = 'active'>{{field.label_tag}}</p>
+                            {% comment %} {{ field|add_class:'form-control' }} {% endcomment %}
+                            
+                            
+                    {% comment %} <div class class = 'form-control' >{% render_field field %}</div> {% endcomment %}
+                {% if field.is_valid %}
+                    {{ field|add_class:'form-control is_valid' }}
+                    <div class="valid-feedback">Valid.</div>
+                {% else %}
+                    {{ field|add_class:'form-control is_invalid' }}
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                {% endif %}
+                
+                    </div>
+                    {% for error in field.errors %}
+                        {% with WIDGET_ERROR_CLASS='invalid-feedback' WIDGET_REQUIRED_CLASS='my_required' %}
+                        {% render_field field.errors %}
+                        {% endwith %}
+                        <div class = 'invalid-feedback'>{{error}}</div>
+                    {% endfor %}
+                    {% comment %} {% if field.help_text %} {% endcomment %}
+                        <small class = 'form-text text-muted'>
+                            {{field.help_text}}
+                        </small>
+                    {% comment %} {% endif %} {% endcomment %}
+                
+                {% endfor %}
+            
+                <div><button type = 'submit' class= 'btn btn-outline-dark'>Create New User</button></div> 
+                </div>
+            </div>
+    </form>
+</div>
+<style>
+    body{
+        
+        background-color : cadetblue ;
+    }
+    div {
+        color : white;
+    }
+    small {
+        color: white ;
+    }
+</style>
+{% endblock content %}

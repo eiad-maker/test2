@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<center>
+<fieldset>
+<div class = 'bg-secondary p-3'>
+    <h1>Login</h1>
+    <form method = 'POST' class="form-horizontal" >
+        <div class = 'container'>
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class = 'form-group'>
+                        <p class = 'font-italic'>{{field.label_tag}}</p>
+                        {{ field|add_class:'form-control' }}
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                {% comment %} <div class class = 'form-control' >{% render_field field %}</div>  {% endcomment %}
+            
+                </div>
+                {% for error in field.errors %}
+                    {% with WIDGET_ERROR_CLASS='invalid-feedback' WIDGET_REQUIRED_CLASS='my_required' %}
+                    {% render_field field.errors %}
+                    {% endwith %}
+                    <div class = 'invalid-feedback'>{{error}}</div>
+                {% endfor %}
+                {% if field.help_text %}
+                    <small class = 'form-text text-muted'>
+                        {{field.help_text}}
+                    </small>
+                {% endif %}
+            
+            {% endfor %}
+            <br>
+            <div><button type = 'submit' class = 'btn btn-outline-dark'>Login</button></div> 
+            <div>Don't Have Account?<a href='{% url "signup" %}'>SignUp</a></div>
+        </div>
+    </form> 
+</fieldset>
+</center>
+</div>
+
+
+<style>
+    body{
+        background-color : cadetblue ;
+    }
+    
+</style>
+{% endblock content %}

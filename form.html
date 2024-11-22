@@ -1,0 +1,31 @@
+{% load widget_tweaks %}
+
+{% for field in form %}
+    <div class = 'form-group'>
+        {{field.label_tag}}
+        {% if form.is_bound %}
+            {% comment %} {% if field.errors %} {% endcomment %}
+            {% render_field field class = 'form-control' type =  "text" %}
+                {% for error in field.errors %}
+                {% with WIDGET_ERROR_CLASS='my_error' WIDGET_REQUIRED_CLASS='my_required' %}
+                {% render_field form.field1 %}
+                {% render_field form.field2 %}
+                {% render_field form.field3 %}
+            {% endwith %}
+            {{field}}
+                {% endfor %}
+                {% else %}
+                {% comment %} {% render_field field class = 'form-control is_valid  '%} {% endcomment %}
+            {% endif %}
+            {% comment %} {% else %} {% endcomment %}
+            {% comment %} {% render_field field class = 'form-control'%} {% endcomment %}
+        {% comment %} {% endif %} {% endcomment %}
+    
+    {% if field.help_text %}
+        <small class = 'form-text text-muted'>
+            {{field.help_text}}
+        </small>
+
+    {% endif %}
+{% endfor %}
+</div> 
